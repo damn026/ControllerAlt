@@ -118,6 +118,13 @@ function setupfunc()
     end
 end
 
+function freeze()
+    if plrid == ControllerID then return end
+    
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
+
+end
+
 
 
 --FUNCTION ENDS
@@ -157,6 +164,8 @@ controllerplayer.Chatted:Connect(function(msg)
         block()
     elseif msg == "amount" then
         amountgui()
+    elseif msg == "freeze" then
+        freeze()
     end
 end)
 
