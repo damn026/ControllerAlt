@@ -23,6 +23,16 @@ wait(1)
 
 local plr = game.Players.LocalPlayer
 
+local controllername = game.Players:GetNameFromUserIdAsync(ControllerID)
+
+
+
+
+
+function amountgui()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/GS21Official/Seller-Tools/main/DaHood%20Cash%20Counter'))()
+end
+
 function block()
         if isal == false then
         local args = {
@@ -121,13 +131,16 @@ local isalt = checkifalt()
 
 local iscontroller = CheckIfController(plrid)
 
+
+local controllerplayer = game.Players[controllername]
+
 --IF STATEMENTS
 
 if iscontroller == false then
     potatopcheck(getgenv().potatopc)
 end
 
-ControllerID.Chatted:Connect(function(msg)
+controllerplayer.Chatted:Connect(function(msg)
     if msg == "drop" and isalt = true then
         dropconstant = true
         drop()
@@ -142,6 +155,8 @@ ControllerID.Chatted:Connect(function(msg)
         walleth()
     elseif msg == "block" then
         block()
+    elseif msg == "amount" then
+        amountgui()
     end
 end)
 
