@@ -1,4 +1,4 @@
---code for my controller
+--CODE FOR ADITYAS (IH CONTROLLER) 
 
 getgenv().potatopc = false
 getgenv().advertt = false
@@ -12,7 +12,9 @@ getgenv().alts = {
 }
 
 
-
+if plrid == ControllerID then
+    local isal = true
+end
 
 local plrid = game.Players.LocalPlayer.UserId
 
@@ -21,11 +23,33 @@ wait(1)
 
 local plr = game.Players.LocalPlayer
 
+function block()
+        if isal == false then
+        local args = {
+            [1] = "Block",
+            [2] = true
+        }
+
+        game:GetService("ReplicatedStorage").MainEvent:FireServer(unpack(args))
+    end
+end
+
+function walleth()
+    if isal == false then
+    local wal = game.Players.LocalPlayer.Backpack:FindFirstChild("Wallet")
+    if wal then
+        wal.parent = game.Players.LocalPlayer.Character
+        end
+    end
+end
+
 function advertsend()
+    if isal == false then
     spawn(function()
         while advertt == true do
             if advertt == false then break() else
                 game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(advert, 'All');
+               end
             end
         end
     end)
@@ -84,6 +108,8 @@ function setupfunc()
     end
 end
 
+
+
 --FUNCTION ENDS
 
 
@@ -112,6 +138,10 @@ ControllerID.Chatted:Connect(function(msg)
         getgenv().advertt = false
     elseif msg == "advert false" then
         getgenv().advertt = false
+    elseif msg == "wallet" then
+        walleth()
+    elseif msg == "block" then
+        block()
     end
 end)
 
