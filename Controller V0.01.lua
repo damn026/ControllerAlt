@@ -3,12 +3,11 @@
 getgenv().potatopc = false
 getgenv().advertt = false
 getgenv().advert = "This is your advert, use it to advertise your DHC server while selling"
-getgenv().ControllerID = nil
+getgenv().ControllerID = 1944337406
 getgenv().dropconstant = false
 getgenv().amountofalts = 2
 getgenv().alts = {
-    A1 = 6464646,
-    A2 = 854858585,
+    A1 = 828591211,
 }
 
 
@@ -57,29 +56,29 @@ function advertsend()
     if isal == false then
     spawn(function()
         while advertt == true do
-            if advertt == false then break() else
-                game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(advert, 'All');
-               end
+                if advertt == false then break else
+                    game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(advert, 'All');
+                end
             end
-        end
-    end)
+        end)
+    end
 end
 
 function checkifalt()
     for i, v in pairs(getgenv().alts) do
-        if v = plrid then
-            return true break()
+        if v == plrid then
+            return true 
+        end
     end
 end
 
 
 function drop()
     spawn(function()
-        while dropconstant == true do 
-            if dropconstant == false then break()
+        while dropconstant == true do
             local args = {
                 [1] = "DropMoney",
-                [2] = "10000"
+                [2] = "10000",
             }
 
             game:GetService("ReplicatedStorage").MainEvent:FireServer(unpack(args))
@@ -103,9 +102,11 @@ end
 
 
 function potatopcfunc()
-    for i, v in pairs(game.Workspace.GetDescendants())
-    if V:IsA("Part") then V:Destroy()
-    wait(0.02)
+        for i, v in pairs(game.Workspace.GetDescendants()) do
+        if V:IsA("Part") then V:Destroy()
+        wait(0.02)
+        end
+    end
 end 
 
 function setupfunc()
@@ -148,7 +149,7 @@ if iscontroller == false then
 end
 
 controllerplayer.Chatted:Connect(function(msg)
-    if msg == "drop" and isalt = true then
+    if msg == "drop" and isalt == true then
         dropconstant = true
         drop()
     elseif msg == "setup" then
@@ -169,3 +170,4 @@ controllerplayer.Chatted:Connect(function(msg)
     end
 end)
 
+   
