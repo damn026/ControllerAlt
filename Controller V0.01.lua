@@ -1,19 +1,19 @@
 --CODE FOR ADITYAS (IH CONTROLLER) 
 
-getgenv().potatopc = false
+getgenv().potatopcheck = false
 getgenv().advertt = false
 getgenv().advert = "This is your advert, use it to advertise your DHC server while selling"
 getgenv().ControllerID = 828591211
 getgenv().dropconstant = false
-getgenv().amountofalts = 2
+getgenv().amountofalts = 1
 getgenv().alts = {
-    A1 = 6464646,
+    A1 = 1944337406,
     A2 = 854858585,
 }
 
 
 if plrid == ControllerID then
-    local isal = true
+    local isaltcheck = true
 end
 
 local plrid = game.Players.LocalPlayer.UserId
@@ -25,16 +25,20 @@ local plr = game.Players.LocalPlayer
 
 local controllername = game.Players:GetNameFromUserIdAsync(ControllerID)
 
+local controllerplayer = game.Players[controllername]
+
+local potatopccframe = CFrame.new(-1000, 1000, -1000000)
 
 
 
 
-function amountgui()
+
+function amountgui() --passed
     loadstring(game:HttpGet('https://raw.githubusercontent.com/GS21Official/Seller-Tools/main/DaHood%20Cash%20Counter'))()
 end
 
-function block()
-        if isal == false then
+function block() -- passed
+        if isaltcheck == false then
         local args = {
             [1] = "Block",
             [2] = true
@@ -44,37 +48,30 @@ function block()
     end
 end
 
-function walleth()
-    if isal == false then
-    local wal = game.Players.LocalPlayer.Backpack:FindFirstChild("Wallet")
-    if wal then
-        wal.parent = game.Players.LocalPlayer.Character
+function walleth() --passed
+    if isaltcheck == false then
+    local wallet = game.Players.LocalPlayer.Backpack:FindFirstChild("Wallet")
+    if wallet then
+        wallet.Parent = game.Players.LocalPlayer.Character
         end
     end
 end
 
-function advertsend()
-    if isal == false then
+function advertsend() --passed
+    if isaltcheck == false then
     spawn(function()
         while advertt == true do
                 if advertt == false then break else
                     game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(advert, 'All');
+                    wait(3)
                 end
             end
         end)
     end
 end
 
-function checkifalt()
-    for i, v in pairs(getgenv().alts) do
-        if v == plrid then
-            return true 
-        end
-    end
-end
 
-
-function drop()
+function drop() --passed
     spawn(function()
         while dropconstant == true do
             local args = {
@@ -88,73 +85,51 @@ function drop()
 end
 
 
-function CheckIfController(id)
+function CheckIfController(id) --passed
 
-    if id == ControllerID then
+    if game.Players.LocalPlayer.UserId == ControllerID then
         return true
     end
 end
 
-function potatopcheck(bool)
+function potatopc(bool) --passed
     if bool then
-        potatopcfunc()
+        workspace.CurrentCamera.CameraType = "Scriptable"
+        workspace.CurrentCamera.CFrame = potatopccframe
     end
 end
 
 
-function potatopcfunc()
-        for i, v in pairs(game.Workspace.GetDescendants()) do
-        if V:IsA("Part") then V:Destroy()
-        wait(0.02)
-        end
-    end
-end 
-
-function setupfunc()
-    local controllerpos = game.Players.ControllerID.Character.Position
-
-    local altc = checkifalt()
-
-    if altc then
-        LocalPlayer.Position = controllerpos + Vector3.new(0, 5, 0)
+function setupfunc() --passed
+    local controllerpos = controllerplayer.Character.HumanoidRootPart.CFrame
+        if controllerplayer then
+        LocalPlayer.Character.HumanoidRootPart.CFrame = controllerpos + CFrame.new(0, 5, 0)
     end
 end
 
-function freeze()
-    if plrid == ControllerID then return end
+function freeze() --passed
+    if game.Players.LocalPlayer.UserId == ControllerID then return end
     
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
 
 end
 
-function swagmodecrash()
+function swagmodecrash() --passed
     loadstring(game:HttpGet('https://raw.githubusercontent.com/lerkermer/lua-projects/master/SuperCustomServerCrasher'))()
 end
 
 
 
 --FUNCTION ENDS
-
-
 wait(1)
-
---LOCALS
-
-local isalt = checkifalt()
-
-local iscontroller = CheckIfController(plrid)
-
-
-local controllerplayer = game.Players[controllername]
-
 --IF STATEMENTS
 
-if iscontroller == false then
-    potatopcheck(getgenv().potatopc)
+if game.Players.LocalPlayer.UserId == ControllerID then return end
+    potatopc(potatopcheck)
 end
 
 
-controllername.Chatted:Connect(function(msg)
+controllerplayer.Chatted:Connect(function(msg)
     if msg == "drop" then 
         dropconstant = true
         drop()
@@ -178,3 +153,4 @@ controllername.Chatted:Connect(function(msg)
     end
 end)
 
+--NEED TO FIX CHATTED EVENT
